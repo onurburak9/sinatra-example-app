@@ -17,6 +17,7 @@ end
 
 DataMapper::Logger.new($stdout, :debug) 
 DataMapper.setup(:default, "postgres://localhost/postgresql-animate-62078")
+#DataMapper.setup(:default, "postgres://localhost/onurb")
 DataMapper.setup(:students, "postgres://localhost/students")
 DataMapper.setup(:comments, "postgres://localhost/comments")
 
