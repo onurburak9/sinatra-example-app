@@ -1,0 +1,20 @@
+<div class="row">
+	<div class="btn-group m-bottom" role="group" aria-label="...">
+	  <a type="button" class="btn btn-default" href="/students">Go Back</a>
+	</div>
+	<div class="m-bottom">
+		<h3>Student Details</h3>
+		<form action="/student/<%= @student.id %>" method="post" accept-charset="utf-8">
+			<input name="_method" type="hidden" value="put" />
+			<label for="name">Name: </label>
+		   	<input type="text" name="name" value="<%= @student.firstname %>">
+		   	<label for="surname">Surname: </label>
+		   	<input type="text" name="surname" value="<%= @student.surname %>">
+		   	<input type ="submit" class="btn-success btn" value="Update Student">
+		</form>
+	</div>
+	<form action="/student/<%= @student.id %>" method="post">
+		<input type="hidden" name="_method" value="delete" />
+		<input type="submit" class="btn-danger btn" value="Delete">
+	</form>
+</div>

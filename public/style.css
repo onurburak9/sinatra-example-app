@@ -1,0 +1,3 @@
+.m-bottom{margin-bottom: 20px}
+input[type="text"],textarea{display: block;margin-bottom: 15px}
+textarea{min-width: 300px;min-height: 150px;}
