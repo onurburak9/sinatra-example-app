@@ -14,9 +14,9 @@ end
 # DataMapper.setup(:students, "sqlite3:///#{Dir.pwd}students.db")
 # DataMapper.setup(:comments, "sqlite3:///#{Dir.pwd}comments.db")
 
-
+#postgres://localhost/postgresql-animate-62078
 DataMapper::Logger.new($stdout, :debug) 
-DataMapper.setup(:default, "postgres://localhost/postgresql-animate-62078")
+DataMapper.setup(:default, ENV['postgresql-animate-62078'])
 #DataMapper.setup(:default, "postgres://localhost/onurb")
 DataMapper.setup(:students, "postgres://localhost/students")
 DataMapper.setup(:comments, "postgres://localhost/comments")
