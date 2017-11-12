@@ -17,7 +17,7 @@ end
 #postgres://localhost/postgresql-animate-62078
 DataMapper::Logger.new($stdout, :debug) 
 
-DataMapper.setup(:default,ENV['postgres://tqemjvdlvmyfrv:0dc0fee410187ba18fb1ffa0f7254ed89c66d3ff4dbe9958835a5781b0d99920@ec2-54-243-107-66.compute-1.amazonaws.com:5432/dmavmb07cui1v'] || 'postgres://localhost/onurb')
+DataMapper.setup(:default, ENV['postgres://tqemjvdlvmyfrv:0dc0fee410187ba18fb1ffa0f7254ed89c66d3ff4dbe9958835a5781b0d99920@ec2-54-243-107-66.compute-1.amazonaws.com:5432/dmavmb07cui1v'])
 #DataMapper.setup(:default, "postgres://localhost/onurb")
 DataMapper.setup(:students, "postgres://localhost/students")
 DataMapper.setup(:comments, "postgres://localhost/comments")
