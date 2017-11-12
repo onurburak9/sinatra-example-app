@@ -1,6 +1,6 @@
 require "rubygems"
 require "sinatra"
-require "sinatra/reloader"
+require "sinatra/reloader" if development?
 require "dm-core"
 require "dm-migrations"
 require "dm-postgres-adapter"
