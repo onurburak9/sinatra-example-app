@@ -1,17 +1,24 @@
-require 'rubygems'
+require "rubygems"
 require "sinatra"
-require "sinatra/reloader" if development?
+require "sinatra/reloader"
 require "dm-core"
-require "dm-migrations" 
+require "dm-migrations"
+require "dm-postgres-adapter"
 
 def active_page?(path='')
   request.path_info == '/' + path
 end
 
+# DataMapper::Logger.new($stdout, :debug) 
+# DataMapper.setup(:default, "sqlite3:///#{Dir.pwd}users.db")
+# DataMapper.setup(:students, "sqlite3:///#{Dir.pwd}students.db")
+# DataMapper.setup(:comments, "sqlite3:///#{Dir.pwd}comments.db")
+
+
 DataMapper::Logger.new($stdout, :debug) 
-DataMapper.setup(:default, "sqlite3:///#{Dir.pwd}users.db")
-DataMapper.setup(:students, "sqlite3:///#{Dir.pwd}students.db")
-DataMapper.setup(:comments, "sqlite3:///#{Dir.pwd}comments.db")
+DataMapper.setup(:default, "postgres://localhost/postgresql-animate-62078")
+DataMapper.setup(:students, "postgres://localhost/students")
+DataMapper.setup(:comments, "postgres://localhost/comments")
 
 
 #DB table definitions
