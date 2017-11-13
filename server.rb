@@ -5,8 +5,26 @@ require "dm-core"
 require "dm-migrations"
 require "dm-postgres-adapter"
 
+configure do
+  enable :sessions
+  set :session_secret, 'secret'
+end
+
 def active_page?(path='')
-  request.path_info == '/' + path
+  return request.path_info == '/' + path
+end
+helpers do
+	def login?
+		if session[:id].nil?
+		  return false
+		else
+		  return true
+		end
+	end
+
+	def usernameGive()
+		return session[:username]
+	end
 end
 
 # DataMapper::Logger.new($stdout, :debug) 
@@ -24,6 +42,22 @@ DataMapper.setup(:comments, "postgres://localhost/comments")
 
 
 #DB table definitions
+class User
+	include DataMapper::Resource
+	property :id, Serial
+	property :username, String, :unique => true, :required => true
+	property :password, String, :required =>true
+
+	 # Authenticate a user based upon a (username or e-mail) and password
+  # Return the user record if successful, otherwise nil
+  def self.authenticate(username, pass)
+    current_user = first(:username => username)
+    return nil if current_user.nil? || pass != current_user.password
+    current_user
+  end
+end
+
+
 class Student
 	include DataMapper::Resource 
 	property :id,   Serial  
@@ -133,12 +167,43 @@ end
 
 #routes for Login
 get '/login' do
-	erb :home, :layout => :login_layout
+	erb :login, :layout => :auth_layout
+end
+
+get '/register' do
+	erb :register, :layout => :auth_layout
 end
 
 post '/login' do
-	username = params[:username]
-	password = params[:password] 
+
+	@user = User.authenticate(params[:username], params[:password])
+	if @user
+		session[:id] = @user.id
+		session[:username] = @user.username
+		puts "Login Session "
+		puts session
+		redirect "/"
+	else
+	 	redirect '/login'
+	end
+end
+
+post '/register' do
+
+	@user = User.new(username: params[:username], password: params[:password])
+
+	if @user.save
+		session[:id] = @user.id
+		session[:username] = @user.username
+		redirect "/"
+	else
+		redirect "/login"
+	end 
+end
+
+get '/logout' do
+	session.clear
+	redirect "/"
 end
 
 get '/*' do

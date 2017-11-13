@@ -23,8 +23,14 @@
 					<li class=<%= "active" if active_page?('students') %>><a href="/students">Students</a></li>
 					<li class=<%= "active" if active_page?('comments') %>><a href="/comments">Comment</a></li>
 					<li class=<%= "active" if active_page?('video') %>><a href="/video">Video</a></li>
-					<li class=<%= "active" if active_page?('login') %>><a href="/login">Login</a></li>
+					<li class=<%= "active" if active_page?('login') %>><a href=<%= login?() ? "/logout" : "/login" %>><%= login? ? "Logout" : "Login" %></a></li>
 				</ul>
+				<% if login? %>
+				
+					<ul class="nav navbar-nav navbar-right">
+				         <li><a href="/">Welcome <%= usernameGive() %></a></li>
+				    </ul>
+				<% end %>
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
 	</nav>
